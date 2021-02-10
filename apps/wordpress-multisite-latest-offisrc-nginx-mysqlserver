@@ -34,7 +34,8 @@ waitOrStop 0 "Nginx failed to restart"
 echo "Creating mysql user and permissions" | log
 mysql --defaults-file=/root/.my.cnf -h localhost <<EOF
 CREATE DATABASE wordpress_${WPID};
-GRANT all privileges on wordpress_${WPID}.* to wp_${WPID}@'localhost' identified by '${ADMINPASSWORD}';
+CREATE USER 'wp_${WPID}'@'localhost' identified with mysql_native_password by '${ADMINPASSWORD}';
+GRANT all privileges on wordpress_${WPID}.* to 'wp_${WPID}'@'localhost';
 FLUSH PRIVILEGES;
 EOF
 
