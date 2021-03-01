@@ -17,7 +17,7 @@ rootDir=$(rootDir)
 
 echo "Creating Magento Database" | log
 mysql --defaults-file=/root/.my.cnf -h localhost <<EOF
-CREATE DATABASE magentodb;
+CREATE DATABASE magentodb CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci;
 CREATE USER 'magentouser'@'localhost' identified with mysql_native_password by '${ADMINPASSWORD}';
 GRANT all privileges on magentodb.* to magentouser@localhost;
 FLUSH PRIVILEGES;
