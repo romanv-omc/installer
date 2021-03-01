@@ -19,7 +19,7 @@ drupaluser_password="$(head /dev/urandom | tr -dc A-Za-z0-9 | head -c 16 ; echo 
 
 echo "Creating Drupal Database" | log
 mysql --defaults-file=/root/.my.cnf -h localhost <<EOF
-CREATE DATABASE drupal;
+CREATE DATABASE drupal CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci;
 CREATE USER 'drupaluser'@'localhost' identified with mysql_native_password by '${ADMINPASSWORD}';
 GRANT all privileges on drupal.* to drupaluser@localhost;
 FLUSH PRIVILEGES;
@@ -66,7 +66,7 @@ echo "Creating Website" | log
 cd $appPath
 # site install
 export HOME=$appPath
-echo "yes" | vendor/bin/drush site-install --db-url=mysql://drupaluser:${drupaluser_password}@localhost/drupal | log
+echo "yes" | vendor/bin/drush site-install --db-url=mysql://drupaluser:${ADMINPASSWORD}@localhost/drupal | log
 sleep 5
 # update admin password
 vendor/bin/drush -r upwd admin ${ADMINPASSWORD} | log
