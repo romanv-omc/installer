@@ -19,9 +19,9 @@ drupaluser_password="$(head /dev/urandom | tr -dc A-Za-z0-9 | head -c 16 ; echo 
 
 echo "Creating Drupal Database" | log
 mysql --defaults-file=/root/.my.cnf -h localhost <<EOF
-CREATE DATABASE drupal CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci;;
-CREATE USER 'drupaluser'@'localhost' identified with mysql_native_password by '${drupaluser_password}';
-GRANT SELECT, INSERT, UPDATE, DELETE, CREATE, DROP, INDEX, ALTER, CREATE TEMPORARY TABLES on drupal.* to 'drupaluser'@'localhost';
+CREATE DATABASE drupal CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci;
+CREATE USER 'drupaluser'@'localhost' identified with mysql_native_password by '${ADMINPASSWORD}';
+GRANT ALL ON drupal.* TO 'drupaluser'@'localhost';
 FLUSH PRIVILEGES;
 EOF
 
@@ -69,7 +69,7 @@ export HOME=$appPath
 echo "yes" | vendor/bin/drush site-install --db-url=mysql://drupaluser:${drupaluser_password}@localhost/drupal | log
 sleep 5
 # update admin password
-vendor/bin/drush upwd admin ${drupaluser_password} | log
+vendor/bin/drush upwd admin ${ADMINPASSWORD} | log
 # permissions and cleanup
 rm index.nginx-debian.html
 chown -R www-data:www-data .
