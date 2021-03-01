@@ -69,7 +69,7 @@ export HOME=$appPath
 echo "yes" | vendor/bin/drush site-install --db-url=mysql://drupaluser:${ADMINPASSWORD}@localhost/drupal | log
 sleep 5
 # update admin password
-vendor/bin/drush -r upwd admin '${ADMINPASSWORD}' | log
+vendor/bin/drush upwd admin '${ADMINPASSWORD}' | log
 # permissions and cleanup
 rm index.nginx-debian.html
 chown -R www-data:www-data .
