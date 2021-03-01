@@ -19,9 +19,9 @@ drupaluser_password="$(head /dev/urandom | tr -dc A-Za-z0-9 | head -c 16 ; echo 
 
 echo "Creating Drupal Database" | log
 mysql --defaults-file=/root/.my.cnf -h localhost <<EOF
-CREATE DATABASE drupal CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci;
+CREATE DATABASE drupal;
 CREATE USER 'drupaluser'@'localhost' identified with mysql_native_password by '${ADMINPASSWORD}';
-GRANT ALL ON drupal.* TO 'drupaluser'@'localhost';
+GRANT all privileges on drupal.* to drupaluser@localhost;
 FLUSH PRIVILEGES;
 EOF
 
