@@ -59,7 +59,7 @@ sleep 5
 echo "Installing Drush" | log
 cd $appPath
 export COMPOSER_HOME=/root
-composer require drush/drush:8.3.5 -v | log
+composer require drush/drush:10.4.0 -v | log
 waitOrStop 0 "Failed to install Drush"
 
 echo "Creating Website" | log
