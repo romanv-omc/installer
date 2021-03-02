@@ -64,7 +64,7 @@ systemctl restart nginx
 waitOrStop 0 "Restart nginx service failed"
 
 echo "Adding descriptions" | log
-descriptionAppend "Mediawiki Web UI: https://${CWM_DISPLAYED_ADDRESS}"
+descriptionAppend "Mediawiki Web UI: https://${CWM_DISPLAYED_ADDRESS}/Special:UserLogin"
 descriptionAppend "Mediawiki Username: admin"
 descriptionAppend "Mediawiki Password: ${ADMINPASSWORD}"
 descriptionAppend " "
