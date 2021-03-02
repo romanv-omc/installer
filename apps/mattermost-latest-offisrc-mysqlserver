@@ -75,12 +75,13 @@ systemctl start mattermost.service
 waitOrStop 0 "Starting mattermost service failed"
 
 echo "Setting HTTPS support" | log
-$appPath/bin/mattermost config set ServiceSettings.TLSKeyFile $certsPath/privkey.pem
-$appPath/bin/mattermost config set ServiceSettings.TLSCertFile $certsPath/cert.pem
-$appPath/bin/mattermost config set ServiceSettings.ListenAddress :443
-$appPath/bin/mattermost config set ServiceSettings.Forward80To443 true
-$appPath/bin/mattermost config set ServiceSettings.ConnectionSecurity TLS
-$appPath/bin/mattermost config set ServiceSettings.UseLetsEncrypt true
+cd $appPath
+bin/mattermost config set ServiceSettings.TLSKeyFile $certsPath/privkey.pem
+bin/mattermost config set ServiceSettings.TLSCertFile $certsPath/cert.pem
+bin/mattermost config set ServiceSettings.ListenAddress :443
+bin/mattermost config set ServiceSettings.Forward80To443 true
+bin/mattermost config set ServiceSettings.ConnectionSecurity TLS
+bin/mattermost config set ServiceSettings.UseLetsEncrypt true
 setcap cap_net_bind_service=+ep $appPath/bin/mattermost
 systemctl restart mattermost.service
 waitOrStop 0 "Restart mattermost service failed"
