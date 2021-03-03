@@ -59,9 +59,9 @@ installPackage openjdk-11-jdk
 installPackage apt-transport-https
 
 echo "Installing ElasticSearch" | log
-curl -fsSL https://artifacts.elastic.co/GPG-KEY-elasticsearch | apt-key add -
+curlDownload -fsSL https://artifacts.elastic.co/GPG-KEY-elasticsearch | apt-key add -
 echo "deb https://artifacts.elastic.co/packages/7.x/apt stable main" | sudo tee -a /etc/apt/sources.list.d/elastic-7.x.list
-installPackage Elasticsearch.Net
+installPackage elasticsearch
 systemctl enable elasticsearch.service
 
 echo "Installing Magento" | log
