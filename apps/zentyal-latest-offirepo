@@ -24,8 +24,10 @@ hostnamectl set-hostname ${savedHostname::32}
 echo "Installing Zentyal 7.0" | log
 debconf-set-selections <<< "zentyal-core zentyal-core/port string 8443"
 installPackage zentyal-network
-apt update | log
 waitOrStop 0 "Failed apt install: zentyal"
+
+echo "ReInstalling Netplan" | log
+installPackage netplan.io
 
 echo "Creating admin user and disabling root" | log
 useradd admin -s /bin/bash -m -g users -G sudo
