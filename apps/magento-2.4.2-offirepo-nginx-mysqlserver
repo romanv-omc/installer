@@ -55,13 +55,13 @@ composer install -v | log
 waitOrStop 0 "Failed to install composer dependencies"
 
 echo "Installing Java" | log
-apt install openjdk-11-jdk
-apt-get install apt-transport-https
+installPackage openjdk-11-jdk
+installPackage apt-transport-https
 
 echo "Installing ElasticSearch" | log
 curl -fsSL https://artifacts.elastic.co/GPG-KEY-elasticsearch | apt-key add -
 echo "deb https://artifacts.elastic.co/packages/7.x/apt stable main" | sudo tee -a /etc/apt/sources.list.d/elastic-7.x.list
-apt-get install elasticsearch
+installPackage elasticsearch
 
 echo "Installing Magento" | log
 cd $appPath

@@ -29,7 +29,6 @@ waitOrStop 0 "Failed apt install: zentyal"
 echo "Creating admin user and disabling root" | log
 useradd admin -s /bin/bash -m -g users -G sudo
 chpasswd <<< "admin:${ADMINPASSWORD}"
-passwd -l root
 
 echo "Fixing DNS Resolver" | log
 sed '/gateway/a dns-nameservers 8.8.8.8 8.8.4.4' -i /etc/network/interfaces
