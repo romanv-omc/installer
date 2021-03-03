@@ -63,7 +63,7 @@ curlDownload https://artifacts.elastic.co/GPG-KEY-elasticsearch
 waitOrStop 0 "Key not downloaded from official source"
 apt-key add GPG-KEY-elasticsearch
 echo "deb https://artifacts.elastic.co/packages/7.x/apt stable main" | sudo tee -a /etc/apt/sources.list.d/elastic-7.x.list
-apt update
+apt update | log
 installPackage elasticsearch
 systemctl enable elasticsearch.service
 
