@@ -19,7 +19,7 @@ rootDir=$(rootDir)
 echo "Downloading PhpBB3" | log
 mkdir -p $appPath
 cd $rootDir/temp
-curlDownload https://www.phpbb.com/files/release/$appArchive
+curlDownload https://download.phpbb.com/pub/release/3.3/$appVersion/$appArchive
 waitOrStop 0 "File not downloaded from official source"
 tar -xjvf $appArchive  -C $appPath/ --strip 1
 waitOrStop 0 "Failed to extract application archive"
