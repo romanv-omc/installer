@@ -23,7 +23,7 @@ hostnamectl set-hostname ${savedHostname::32}
 
 echo "Installing Zentyal 7.0" | log
 debconf-set-selections <<< "zentyal-core zentyal-core/port string 8443"
-installPackage zentyal-network
+#installPackage zentyal-network
 waitOrStop 0 "Failed apt install: zentyal"
 
 echo "Creating admin user and disabling root" | log
