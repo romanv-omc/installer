@@ -43,8 +43,8 @@ rm -f $appPath/$appVersion.tar.gz
 
 echo "Setting permissions for Magento" | log
 cd $appPath
-find var generated vendor pub/static pub/media app/etc -type f -exec chmod u+w {} \;
-find var generated vendor pub/static pub/media app/etc -type d -exec chmod u+w {} \;
+find var generated vendor pub/static pub/media app/etc -type f -exec chmod g+w {} \;
+find var generated vendor pub/static pub/media app/etc -type d -exec chmod g+ws {} \;
 chown -R www-data:www-data .
 chmod u+x bin/magento
 
@@ -68,9 +68,7 @@ installPackage elasticsearch
 systemctl enable elasticsearch.service
 
 echo "Installing Magento" | log
-cd $appPath
-chmod -R 777 var pub app generated
-php bin/magento setup:install --base-url-secure=https://${CWM_DISPLAYED_ADDRESS}/ --db-host=localhost --db-name=magentodb --db-user=magentouser --db-password=${ADMINPASSWORD} --admin-firstname=admin --admin-lastname=admin --admin-email=${ADMINEMAIL} --admin-user=admin --admin-password=${ADMINPASSWORD}  --language=en_US  --currency=USD --timezone=$(cat /etc/timezone) --use-rewrites=1 --use-secure=1 --use-secure-admin=1 --search-engine=elasticsearch7 --elasticsearch-host=localhost --elasticsearch-port=9200 | log
+$appPath/bin/magento setup:install --base-url-secure=https://${CWM_DISPLAYED_ADDRESS}/ --db-host=localhost --db-name=magentodb --db-user=magentouser --db-password=${ADMINPASSWORD} --admin-firstname=admin --admin-lastname=admin --admin-email=${ADMINEMAIL} --admin-user=admin --admin-password=${ADMINPASSWORD}  --language=en_US  --currency=USD --timezone=$(cat /etc/timezone) --use-rewrites=1 --use-secure=1 --use-secure-admin=1 --search-engine=elasticsearch7 --elasticsearch-host=localhost --elasticsearch-port=9200 | log
 
 ADMIN_URI=`grep "Admin URI:" $CWM_LOGDIR/*.log | rev | cut -d ' ' -f 1 | rev | head -1`
 # ADMIN_URI=`php /var/www/html/bin/magento info:adminuri | rev | cut -d ' ' -f 1 | rev`
@@ -78,8 +76,8 @@ ADMIN_URI=`grep "Admin URI:" $CWM_LOGDIR/*.log | rev | cut -d ' ' -f 1 | rev | h
 
 echo "Verifying permissions for Magento" | log
 cd $appPath 
-find var generated vendor pub/static pub/media app/etc -type f -exec chmod u+w {} \;
-find var generated vendor pub/static pub/media app/etc -type d -exec chmod u+w {} \;
+find var generated vendor pub/static pub/media app/etc -type f -exec chmod g+w {} \;
+find var generated vendor pub/static pub/media app/etc -type d -exec chmod g+ws {} \;
 chown -R www-data:www-data .
 chmod u+x bin/magento
 
