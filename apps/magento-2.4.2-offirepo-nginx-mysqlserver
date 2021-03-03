@@ -61,6 +61,7 @@ installPackage apt-transport-https
 echo "Installing ElasticSearch" | log
 curlDownload https://artifacts.elastic.co/GPG-KEY-elasticsearch | apt-key add -
 echo "deb https://artifacts.elastic.co/packages/7.x/apt stable main" | sudo tee -a /etc/apt/sources.list.d/elastic-7.x.list
+apt update
 installPackage elasticsearch
 systemctl enable elasticsearch.service
 
