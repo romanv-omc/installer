@@ -66,6 +66,7 @@ echo "deb https://artifacts.elastic.co/packages/7.x/apt stable main" | sudo tee 
 apt update | log
 installPackage elasticsearch
 systemctl enable elasticsearch.service
+systemctl stop elasticsearch.service
 
 echo "Installing Magento" | log
 systemctl start elasticsearch.service
