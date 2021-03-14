@@ -10,10 +10,10 @@ checkTagExist ubuntu-updateos.success
 
 echo "Installing mysql from apt" | log
 export DEBIAN_FRONTEND="noninteractive"
-debconf-set-selections <<< "mysql-server-5.7 mysql-server/root_password password ${ADMINPASSWORD}"
-debconf-set-selections <<< "mysql-server-5.7 mysql-server/root_password_again password ${ADMINPASSWORD}"
+debconf-set-selections <<< "mysql-server-8.0 mysql-server/root_password password ${ADMINPASSWORD}"
+debconf-set-selections <<< "mysql-server-8.0 mysql-server/root_password_again password ${ADMINPASSWORD}"
 installPackage mysql-server
-waitOrStop 0 "Failed apt install: mysql-server-5.7"
+waitOrStop 0 "Failed apt install: mysql-server-8.0"
 
 echo "Set ~/.my.cnf root password for quick cli work" | log
 if [ ! -f ~/.my.cnf ]; then
