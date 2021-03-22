@@ -51,7 +51,7 @@ chmod u+x bin/magento
 echo "Installing Composer dependencies for Magento" | log
 cd $appPath
 export COMPOSER_HOME=/root
-composer self-update 1.10.1
+sudo -H composer self-update 1.10.1
 composer clearcache
 composer install -v | log
 waitOrStop 0 "Failed to install composer dependencies"
