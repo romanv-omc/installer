@@ -25,7 +25,6 @@ EOF
 
 echo "Installing Composer for machine" | log
 installPackage composer | log
-sudo -H composer self-update 1.10.1
 waitOrStop 0 "Failed apt install: composer"
 
 
