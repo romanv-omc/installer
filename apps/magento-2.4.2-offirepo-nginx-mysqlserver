@@ -25,6 +25,7 @@ EOF
 
 echo "Installing Composer for machine" | log
 installPackage composer | log
+sudo -H composer self-update 1.10.1
 waitOrStop 0 "Failed apt install: composer"
 
 
@@ -51,8 +52,6 @@ chmod u+x bin/magento
 echo "Installing Composer dependencies for Magento" | log
 cd $appPath
 export COMPOSER_HOME=/root
-sudo -H composer self-update 1.10.1
-composer clearcache
 composer install -v | log
 waitOrStop 0 "Failed to install composer dependencies"
 
