@@ -35,7 +35,7 @@ waitOrStop 0 "File not downloaded from official source"
 echo "HASH=$(cat installer.sig)"
 php -r "if (hash_file('SHA384', 'composer-setup.php') === '$HASH') { echo 'Installer verified'; } else { echo 'Installer corrupt'; unlink('composer-setup.php'); } echo PHP_EOL;"
 php composer-setup.php --version=1.10.1
-waitOrStop 0 "Failed to update composer"
+sleep 2
 
 echo "Downloading Magento ${appVersion} from github repo" | log
 mkdir -p $appPath
