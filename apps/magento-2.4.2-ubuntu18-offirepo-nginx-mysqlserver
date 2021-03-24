@@ -23,15 +23,9 @@ GRANT all privileges on magentodb.* to magentouser@localhost;
 FLUSH PRIVILEGES;
 EOF
 
-echo "Installing Composer" | log
-cd $appPath
-curlDownload https://getcomposer.org/installer -o composer-setup.php
-waitOrStop 0 "File not downloaded from official source"
-curlDownload https://composer.github.io/installer.sig
-waitOrStop 0 "File not downloaded from official source"
-php -r "if (hash_file('SHA384', 'composer-setup.php') === '$(cat installer.sig)') { echo 'Installer verified'; } else { echo 'Installer corrupt'; unlink('composer-setup.php'); } echo PHP_EOL;"
-php composer-setup.php --version=1.10.1
-waitOrStop 0 "Failed to install composer"
+echo "Installing Composer for machine" | log
+installPackage composer | log
+waitOrStop 0 "Failed apt install: composer"
 
 echo "Downloading Magento ${appVersion} from github repo" | log
 mkdir -p $appPath
@@ -55,10 +49,15 @@ chmod u+x bin/magento
 
 echo "Installing Composer dependencies for Magento" | log
 cd $appPath
-curlDownload https://raw.githubusercontent.com/magento/magento2/2.4-develop/composer.json
-waitOrStop 0 "File not downloaded from official source"
 export COMPOSER_HOME=/root
-php composer.phar install -v | log
+curlDownload https://getcomposer.org/installer -o composer-setup.php
+waitOrStop 0 "File not downloaded from official source"
+curlDownload https://composer.github.io/installer.sig
+waitOrStop 0 "File not downloaded from official source"
+php -r "if (hash_file('SHA384', 'composer-setup.php') === '$(cat installer.sig)') { echo 'Installer verified'; } else { echo 'Installer corrupt'; unlink('composer-setup.php'); } echo PHP_EOL;"
+php composer-setup.php --version=1.10.1
+sleep 2
+php composer-setup.php install -v | log
 waitOrStop 0 "Failed to install composer dependencies"
 
 echo "Installing Java" | log
