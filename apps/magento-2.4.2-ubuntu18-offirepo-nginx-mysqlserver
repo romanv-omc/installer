@@ -109,6 +109,7 @@ bin/magento config:set dev/static/sign 0
 curl https://${CWM_DISPLAYED_ADDRESS} --insecure -o /dev/null
 waitOrStop 0 "Website failed to respond"
 bin/magento setup:static-content:deploy -f
+sleep 5
 bin/magento cache:clean
 waitOrStop 0 "Cleanup actions failed"
 
