@@ -47,8 +47,9 @@ find var generated vendor pub/static pub/media app/etc -type d -exec chmod g+ws 
 chown -R www-data:www-data .
 chmod u+x bin/magento
 
-if [ $(lsb_release -sr | awk -F. '{print $1}')=18 ]; then
-    echo "Installing Composer dependencies for Magento" | log
+checkOS
+if [ $(OSVersion)=18 ]; then
+	echo "Installing Composer dependencies for Magento" | log
 	cd $appPath
 	export COMPOSER_HOME=/root
 	curlDownload https://getcomposer.org/installer composer-setup.php
@@ -60,14 +61,14 @@ if [ $(lsb_release -sr | awk -F. '{print $1}')=18 ]; then
 	sleep 2
 	php composer.phar install -v | log
 	waitOrStop 0 "Failed to install composer dependencies"
-elif [ $(lsb_release -sr | awk -F. '{print $1}')=20 ]; then
+elif [ $(OSVersion)=20 ]; then
 	echo "Installing Composer dependencies for Magento" | log
 	cd $appPath
 	export COMPOSER_HOME=/root
 	composer install -v | log
 	waitOrStop 0 "Failed to install composer dependencies"
 else
-    echo "OS Version is not supported."
+	echo "OS Version is not supported."
 fi
 
 echo "Installing Java" | log
