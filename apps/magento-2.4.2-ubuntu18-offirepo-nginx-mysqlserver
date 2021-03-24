@@ -50,9 +50,9 @@ chmod u+x bin/magento
 echo "Installing Composer dependencies for Magento" | log
 cd $appPath
 export COMPOSER_HOME=/root
-curlDownload https://getcomposer.org/installer -o composer-setup.php
+curl https://getcomposer.org/installer -o composer-setup.php
 waitOrStop 0 "File not downloaded from official source"
-curlDownload https://composer.github.io/installer.sig
+wget https://composer.github.io/installer.sig
 waitOrStop 0 "File not downloaded from official source"
 php -r "if (hash_file('SHA384', 'composer-setup.php') === '$(cat installer.sig)') { echo 'Installer verified'; } else { echo 'Installer corrupt'; unlink('composer-setup.php'); } echo PHP_EOL;"
 php composer-setup.php --version=1.10.1
