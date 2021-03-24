@@ -55,6 +55,8 @@ chmod u+x bin/magento
 
 echo "Installing Composer dependencies for Magento" | log
 cd $appPath
+curlDownload https://raw.githubusercontent.com/magento/magento2/2.4-develop/composer.json
+waitOrStop 0 "File not downloaded from official source"
 export COMPOSER_HOME=/root
 php composer.phar install -v | log
 waitOrStop 0 "Failed to install composer dependencies"
