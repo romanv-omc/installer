@@ -64,18 +64,21 @@ function checkRootUser() {
 }
 
 function checkOs() {
+    test=(18 20)
 
-    echo "Checking if OS is supported ..." | log
-
+    echo "Checking if OS is supported ..."
     if [ -n "$(grep 'Ubuntu' /etc/issue)" -o "$(lsb_release -is 2>/dev/null)" == "Ubuntu" -o -n "$(grep 'Linux Mint' /etc/issue)" ]; then
 
         OS=Ubuntu
         OSVersion=$(lsb_release -sr | awk -F. '{print $1}')
-
     fi
 
+    if [[ "$OS $OSVersion" != "$OS ${test[0]}" && "$OS $OSVersion" != "$OS ${test[1]}" ]]; then
+        echo "$OS $OSVersion is not supported, exiting. (1)"
+        exit 1
 
-    echo "Found supported OS: $OS $OSVersion" | log
+    fi
+            echo "Found supported OS: $OS $OSVersion"
 
 }
 
