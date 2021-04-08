@@ -20,8 +20,7 @@ sh plesk-installer install plesk 18.0.33 | log
 waitOrStop 0 "Failed to install application"
 
 echo "Configuring Plesk" | log
-apt update | log
-plesk bin init_conf --init -default-ip ${CWM_SERVERIP} -iface eth0 -trial_license true -ip-type shared -passwd ${ADMINPASSWORD} -email ${ADMINEMAIL} | log
+plesk bin init_conf --init -default-ip ${CWM_SERVERIP} -ip-type shared -passwd ${ADMINPASSWORD} -email ${ADMINEMAIL} | log
 waitOrStop 0 "Configuration procedure failed"
 
 echo "Updating hostname" | log
